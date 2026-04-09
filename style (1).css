@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    background-color: #010501; /* Takmer čierna s nádychom zelenej */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.game-wrapper {
+    position: relative;
+    border: 4px solid #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 0 100px rgba(0, 255, 65, 0.15);
+    overflow: hidden;
+    /* Post-processing filtre pre celú hru (farba a kontrast) */
+    filter: sepia(0.2) hue-rotate(80deg) brightness(0.9) contrast(1.1);
+}
+
+/* CRT efekt: Skenovacie čiary a jemné vlnenie */
+.game-wrapper::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    background-size: 100% 4px, 4px 100%;
+    pointer-events: none; /* Aby sa dalo klikať cez filter */
+    z-index: 10;
+    opacity: 0.6;
+}
+
+/* Jemná žiara okolo obrazovky */
+.game-wrapper::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+canvas {
+    display: block;
+    /* background-color sa nastavuje v JS pre gradienty */
+}
